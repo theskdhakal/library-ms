@@ -22,3 +22,7 @@
   font-weight: bolder;
   font-style: 1.6rem;
 }
+
+body {
+  background: var(--mainBg) !important;
+}
