@@ -4,6 +4,10 @@ import { Button, Container, Form } from "react-bootstrap";
 import { CustomInput } from "../../components/custom-input/CustomInput";
 import { toast } from "react-toastify";
 
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../config/firebase-config";
+import { doc, setDoc } from "firebase/firestore";
+
 const initialState = {
   password: "DentedCode1",
   confirmPassword: "DentedCode1",
@@ -30,33 +34,58 @@ export const SignUp = () => {
     });
   };
 
-  const handleOnSubmit = (e) => {
-    // try {
-    e.preventDefault();
+  const handleOnSubmit = async (e) => {
+    try {
+      e.preventDefault();
 
-    const { confirmPassword, password, email } = frmData;
+      const { confirmPassword, password, email } = frmData;
 
-    if (confirmPassword !== password) {
-      return toast.error("password do not match!");
-    } else {
-      return toast.success("user registered");
+      if (confirmPassword !== password) {
+        toast.error("password do not match!");
+      }
+
+      //use firebase auth service to create user with auth account
+
+      const pendingState = createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      toast.promise(pendingState, {
+        pending: "please wait..",
+      });
+
+      const { user } = await pendingState;
+      console.log(user);
+      if (user?.uid) {
+        //user is registered,now lets's add them in our database for the future purpose
+
+        const userObj = {
+          fName: frmData.fName,
+          lName: frmData.lName,
+          email: frmData.email,
+        };
+
+        await setDoc(doc(db, "users", user.uid), userObj);
+        toast.success("user has been registered.You may login now");
+      }
+    } catch (error) {
+      toast.error(error.message);
     }
-
-    //use firebase auth service to create user with auth account
-    // } catch (error) {}
   };
 
   const inputs = [
     {
       label: "first Name",
-      name: "fname",
+      name: "fName",
       type: "text",
       placeholder: "sam",
       required: true,
     },
     {
       label: "last Name",
-      name: "lname",
+      name: "lName",
       type: "text",
       placeholder: "smith",
       required: true,
