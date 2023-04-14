@@ -27,7 +27,7 @@ export const SignIn = () => {
       <Container className="mt-5">
         <Form.Group
           className="border p-5 rounded shadow-lg m-auto bg-light  "
-          style={{ width: "400px" }}
+          style={{ width: "600px" }}
         >
           <h3>Welcome back ! please Login to continue</h3>
           <hr />

@@ -6,6 +6,7 @@ import { SignUp } from "./pages/signup-signin/SignUp";
 import { PrivateRoute } from "./components/private-route/PrivateRoute";
 import { Dashboard } from "./pages/dashboard/Dashboard";
 import { Profile } from "./pages/dashboard/Profile";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -32,7 +33,9 @@ function App() {
             }
           />
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
+      <ToastContainer />
     </div>
   );
 }

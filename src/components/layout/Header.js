@@ -8,7 +8,7 @@ import logo from "../../Assets/logo.JPG";
 export const Header = () => {
   return (
     <Navbar bg="success" variant="dark" expand="md">
-      <Container className="d-flex justify-content-between">
+      <Container>
         <Navbar.Brand>
           <Link to="/">
             <img src={logo} alt="" className="image " />
