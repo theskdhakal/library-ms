@@ -8,15 +8,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../components/user/userAction";
 
 export const SignIn = () => {
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [frmData, setFrmData] = useState({});
-  // const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
 
-  // useEffect(() => {
-  //   user?.uid && navigate("/dashboard");
-  // }, [user?.uid, navigate]);
+  useEffect(() => {
+    user?.uid && navigate("/dashboard");
+  }, [user?.uid, navigate]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
