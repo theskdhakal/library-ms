@@ -2,18 +2,36 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import { auth } from "../../config/firebase-config";
 
-export const loginUser = async ({ email, password }) => {
+
+export const getUserAction=(uid)=>async(dispatch)=>{
+  try{
+    //get user id from firebase
+    const userRef=doc(db,"users", uid);
+
+    const docSnap=await getDoc(userRef);
+  }
+}
+
+
+//create new user
+export const loginUser = async (data) => async(dispatch)=>{
   try {
-    //check with auth service
-    const userCredential = await signInWithEmailAndPassword(
+    
+    const pendingUser = signInWithEmailAndPassword(
       auth,
-      email,
-      password
+      data.email,
+      data.password
     );
+   toast.promise(pendingUser,{
+    pending:"please wait..."
+   })
 
-    //get user from firestore service
+   const {user}=await pendingUser;
 
-    //mount user to redux
+   if (user.uid){
+    dispatch()
+   }
+ 
   } catch (error) {
     toast.error(error.message);
   }
