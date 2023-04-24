@@ -5,7 +5,7 @@ import { Footer } from "./Footer";
 export const MainLayout = ({ children }) => {
   return (
     <div>
-      {/* header sectiopn  */}
+      {/* header section  */}
       <Header />
 
       {/* main content area  */}

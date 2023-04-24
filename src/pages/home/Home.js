@@ -2,5 +2,7 @@ import React from "react";
 import { MainLayout } from "../../components/layout/MainLayout";
 
 export const Home = () => {
-  return <MainLayout>;lkjhgfdkjhg</MainLayout>;
+  return (
+    <MainLayout>welcome to Library! Heaven for knowledge seeker</MainLayout>
+  );
 };

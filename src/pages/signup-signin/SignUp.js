@@ -57,7 +57,6 @@ export const SignUp = () => {
       });
 
       const { user } = await pendingState;
-      console.log(user);
       if (user?.uid) {
         //user is registered,now lets's add them in our database for the future purpose
 
