@@ -10,8 +10,21 @@ import { Books } from "./pages/book/Books";
 import { Clients } from "./pages/clients/Clients";
 import { History } from "./pages/history/History";
 import { NewBook } from "./pages/book/NewBook";
+import { useDispatch } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./config/firebase-config";
+import { getUserAction } from "./components/user/userAction";
 
 function App() {
+  const dispatch = useDispatch();
+
+  //let firebase to re auth user if they reload the page
+
+  onAuthStateChanged(auth, (userData) => {
+    if (userData.uid) {
+      dispatch(getUserAction(userData.uid));
+    }
+  });
   return (
     <div className="">
       <BrowserRouter>
