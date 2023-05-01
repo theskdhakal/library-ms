@@ -1,45 +1,29 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { toast } from "react-toastify";
-import { auth, db } from "../../config/firebase-config";
-import { doc, getDoc } from "firebase/firestore";
-import { setUser } from "./userSlice";
+import React from "react";
 
-export const getUserAction = (uid) => async (dispatch) => {
+export const BookAction = () => async (dispatch) => {
   try {
-    //get user id from firebase
-    const userRef = doc(db, "users", uid);
+    //define search query
 
-    const docSnap = await getDoc(userRef);
+    const q = query(collection(db, "books"));
 
-    //dispatch user to the redux
+    //run query to get data
+    const querySnapshot = await getDocs(q);
 
-    if (docSnap.exists()) {
-      const user = { ...docSnap.data(), uid };
-      dispatch(setUser(user));
-    }
-  } catch (error) {
-    toast.error(error.message);
-  }
-};
+    let books = [];
 
-//create new user
-export const loginUser = (data) => async (dispatch) => {
-  try {
-    const pendingUser = signInWithEmailAndPassword(
-      auth,
-      data.email,
-      data.password
-    );
-    toast.promise(pendingUser, {
-      pending: "please wait...",
+    querySnapshot.forEach((doc) => {
+      const id = doc.id;
+      const bookData = doc.data();
+      console.log(bookData, id);
+
+      books.push({
+        ...bookData,
+        id,
+      });
     });
-
-    const { user } = await pendingUser;
-    console.log(user);
-    if (user.uid) {
-      dispatch(getUserAction(user.uid));
-    }
+    dispatch(setbook(books));
   } catch (error) {
-    toast.error(error.message);
+    console.log(error);
   }
+  return <div>BookAction</div>;
 };
