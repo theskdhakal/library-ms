@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import { auth, db } from "../../config/firebase-config";
 import { doc, getDoc } from "firebase/firestore";
-import { setUser } from "./userSlice";
+import { setUser } from "../../pages/signup-signin/userSlice";
 
 export const getUserAction = (uid) => async (dispatch) => {
   try {

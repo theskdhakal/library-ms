@@ -9,7 +9,7 @@ import logo from "../../Assets/logo.JPG";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
 import { auth } from "../../config/firebase-config";
-import { setUser } from "../user/userSlice";
+import { setUser } from "../../pages/signup-signin/userSlice";
 
 export const Header = () => {
   const dispatch = useDispatch();

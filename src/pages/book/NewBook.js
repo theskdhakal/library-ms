@@ -5,6 +5,7 @@ import { PrivateRoute } from "../../components/private-route/PrivateRoute";
 import { Link } from "react-router-dom";
 import { CustomInput } from "../../components/custom-input/CustomInput";
 import { useDispatch } from "react-redux";
+import { addNewBookAction } from "./BookAction";
 
 export const NewBook = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,10 @@ export const NewBook = () => {
     setForm({ ...form, [name]: value });
   };
 
-  // const handleOnSUbmit
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(addNewBookAction(form));
+  };
 
   const inputs = [
     {
@@ -68,6 +72,7 @@ export const NewBook = () => {
           <hr />
 
           <Form
+            onSubmit={handleOnSubmit}
             className="border p-5 shadow-lg rounded m-auto bg-light mb-3"
             style={{ width: "500px" }}
           >
@@ -75,7 +80,7 @@ export const NewBook = () => {
 
             <div className="mt-5">
               {inputs.map((item, i) => (
-                <CustomInput key={i} {...item} />
+                <CustomInput key={i} {...item} onChange={handleOnChange} />
               ))}
 
               <div className="d-grid">
